@@ -55,6 +55,7 @@ void accel() {
   x = analogRead(xAxis);
   y = analogRead(yAxis);
   z = analogRead(zAxis);
+  //Read accelerometer, turn on appropriate signal, or shut off
   if(x>342){
     sweepLeft();
   }else if(x<328){
@@ -66,7 +67,7 @@ void accel() {
   //Serial.println(y);
   //Serial.println(z);
 }
-int checkLight() {
+int checkLight() { //Check light readings, set appropriate led
   int lgt = analogRead(light);
   if(lgt>560){
     digitalWrite(green,HIGH);
@@ -83,17 +84,17 @@ int checkLight() {
   }
   return lgt;
 }
-void sweepLeft() {
+void sweepLeft() { //Left turn signal
   ri = increment();//Increment row counter
   setRows(LOW);//Shut off all rows
   digitalWrite(rows[ri],HIGH);
 }
-void sweepRight() {
+void sweepRight() { //Right turn signal
   ri = decrement();//decrement row counter
   setRows(LOW);//Shut off all rows
   digitalWrite(rows[ri],HIGH);
 }
-int increment() {
+int increment() { //Sweep between last three rows
   ri++;
   if(ri>6||ri<3)
   {
@@ -101,7 +102,7 @@ int increment() {
   }
   return ri;
 }
-int decrement() {
+int decrement() { //Sweep between first three rows
   ri--;
   if(ri<-1||ri>2)
   {
